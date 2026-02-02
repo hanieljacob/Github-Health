@@ -5,14 +5,10 @@ const GITHUB_API_BASE = 'https://api.github.com';
 // In a real app, you would want to use a Next.js API route to hide the token
 const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
-const headers = GITHUB_TOKEN
-  ? {
-      'Authorization': `Bearer ${GITHUB_TOKEN}`,
-      'Accept': 'application/vnd.github.v3+json',
-    }
-  : {
-      'Accept': 'application/vnd.github.v3+json',
-    };
+const headers: HeadersInit = {
+  'Accept': 'application/vnd.github.v3+json',
+  ...(GITHUB_TOKEN ? { 'Authorization': `Bearer ${GITHUB_TOKEN}` } : {}),
+};
 
 // Helper to fetch with error handling
 async function apiFetch(url: string) {
